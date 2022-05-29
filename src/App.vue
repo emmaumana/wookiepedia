@@ -8,6 +8,7 @@ const store = useStore()
 
 <template>
   <div class="app-container pb-6">
+    <h1 class="title">Wookipedia</h1>
     <Table />
     <LoadMore v-if="store.state.loadStatus.isLoaded" />
   </div>
@@ -29,5 +30,9 @@ const store = useStore()
   margin: 0 auto;
   width: auto;
   padding: 0 20px;
+
+  & > .title {
+    color: #9d79f8;
+  }
 }
 </style>
