@@ -28,6 +28,7 @@ const store = useStore()
   width: 100%;
   right: 0;
   padding-right: 10px;
+  pointer-events: none;
   z-index: 300;
 }
 

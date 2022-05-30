@@ -26,7 +26,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="notifications__notification notification is-danger">
     <p class="notifications__notification-title title is-6">
-      There was a comunication error with the Api
+      There was a comunication problem with the Api
     </p>
     <p class="notifications__notification-message mt-0">
       {{ notification.message }}

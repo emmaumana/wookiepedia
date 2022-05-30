@@ -23,6 +23,10 @@ const loadMore = async () => {
   changeLoadingStatus()
 }
 
+const loadMoreTest = async () => {
+  await store.dispatch('residents/fetchResidents', parseInt(0))
+}
+
 const buttonText = computed(() => {
   return nextPage.value ? 'Load more' : 'No more people'
 })
@@ -42,6 +46,10 @@ const buttonLoadingClass = computed(() => {
         :disabled="!nextPage"
       >
         {{ buttonText }}
+      </button>
+
+      <button @click="loadMoreTest" class="button is-info is-outlined">
+        Test notification
       </button>
     </div>
   </div>

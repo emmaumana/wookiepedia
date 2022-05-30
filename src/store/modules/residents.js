@@ -64,8 +64,15 @@ export const actions = {
 
       return request.data.results
     } catch (error) {
+      let message
+      if (error?.response.status === 404) {
+        message = `The page "${page}" doesn't exists`
+      } else {
+        message = error.message
+      }
+
       const notification = {
-        message: error.message
+        message: message
       }
 
       dispatch('notifications/add', notification, { root: true })
