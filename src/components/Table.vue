@@ -28,9 +28,7 @@ const tableResidents = computed(() => {
   return store.getters['residents/getFilteredOrTotal'](searchQuery.value)
 })
 
-const totalResidents = computed(
-  () => store.getters['residents/getTotalResidentsCount']
-)
+const totalResidents = computed(() => store.getters['residents/getTotalResidentsCount'])
 
 const loadedResidentsCount = computed(
   () => store.getters['residents/getLoadedResidentsCount']
@@ -42,7 +40,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <SearchBar @filtered="setSearchQuery" />
+  <SearchBar @queried="setSearchQuery" />
   <div v-if="isLoaded" class="data-table my-5 is-relative">
     <div class="data-table__container">
       <table

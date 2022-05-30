@@ -1,7 +1,9 @@
 <script setup>
-import { store } from '../store'
+import { useStore } from 'vuex'
 import { onMounted, ref, computed } from 'vue'
 import { getNumberFromString } from '../utils/index'
+
+const store = useStore()
 
 const nextPage = ref(getNumberFromString(store.state.residents.residents.next))
 const isLoading = ref(false)

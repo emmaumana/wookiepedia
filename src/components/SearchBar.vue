@@ -1,19 +1,8 @@
 <script setup>
-const props = defineProps({
-  data: {
-    type: Array,
-    default: []
-  }
-})
+const emit = defineEmits(['queried'])
 
-const emit = defineEmits(['filtered'])
-
-const filter = e => {
-  // const fileteredResidents = props.data.filter(resident =>
-  //   resident.name.toLowerCase().includes(e.target.value.toLowerCase())
-  // )
-  // emit('filtered', fileteredResidents)
-  emit('filtered', e.target.value.toLowerCase())
+const sendQuery = e => {
+  emit('queried', e.target.value.toLowerCase())
 }
 </script>
 
@@ -25,7 +14,7 @@ const filter = e => {
           class="input"
           type="text"
           placeholder="Search by name..."
-          @input="filter"
+          @input="sendQuery"
         />
         <span class="icon is-small is-right">
           <i class="fas fa-search"></i>

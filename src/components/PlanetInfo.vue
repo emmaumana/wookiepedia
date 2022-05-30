@@ -11,8 +11,7 @@ const props = defineProps({
 
 const showInfo = ref(false)
 
-const toggleInfoVisibility = event => {
-  if (event.type !== 'click') return (showInfo.value = false)
+const toggleInfoVisibility = () => {
   showInfo.value = !showInfo.value
 }
 
