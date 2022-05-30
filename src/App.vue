@@ -2,6 +2,7 @@
 import { useStore } from 'vuex'
 import Table from './components/Table.vue'
 import LoadMore from './components/LoadMore.vue'
+import Notification from './components/Notification.vue'
 
 const store = useStore()
 </script>
@@ -11,6 +12,7 @@ const store = useStore()
     <h1 class="title">Wookipedia</h1>
     <Table />
     <LoadMore v-if="store.state.loadStatus.isLoaded" />
+    <Notification />
   </div>
 </template>
 

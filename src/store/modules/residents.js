@@ -1,3 +1,4 @@
+import { useStore } from 'vuex'
 import Api from '../../services/api'
 import {
   sortArray,
@@ -20,10 +21,7 @@ export const mutations = {
       state.residents = residentsData
     } else {
       state.residents.next = residentsData.next
-      state.residents.results = [
-        ...state.residents.results,
-        ...residentsData.results
-      ]
+      state.residents.results = [...state.residents.results, ...residentsData.results]
     }
     // caching
     saveToLocalStorage('residents', { data: state.residents })
@@ -35,28 +33,27 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchResidents({ commit }, page = 1) {
-    let request
-    let cachedPages = getFromLocalStorage('cached-pages') || []
-
+  async fetchResidents({ commit, dispatch }, page = 1) {
     try {
-      if (cachedPages.includes(page)) {
-        return (request = getFromLocalStorage('residents'))
-      }
-      // or it's a new page
-      request = await Api.get(`people?page=${page}`)
-      // Adding planet info
-      for (const resident of request.data.results) {
-        const planetId = getNumberFromString(resident.homeworld)
-        const planetData = await Api.get(`planets/${planetId}/`)
+      let request
+      let cachedPages = getFromLocalStorage('cached-pages') || []
 
-        Object.assign(resident, formatPlanetInfo(planetData.data))
+      if (cachedPages.includes(page)) {
+        request = getFromLocalStorage('residents')
+      } else {
+        // or it's a new page
+        request = await Api.get(`people?page=${page}`)
+        // Adding planet info
+        for (const resident of request.data.results) {
+          const planetId = getNumberFromString(resident.homeworld)
+          const planetData = await Api.get(`planets/${planetId}/`)
+
+          Object.assign(resident, formatPlanetInfo(planetData.data))
+        }
+        // format date
+        formatResidentsData(request.data.results)
       }
-      // format date
-      formatResidentsData(request.data.results)
-    } catch (error) {
-      console.log(error)
-    } finally {
+
       // saving
       commit('SET_RESIDENTS', request.data)
       // caching page if it doesn't exist
@@ -66,6 +63,12 @@ export const actions = {
       }
 
       return request.data.results
+    } catch (error) {
+      const notification = {
+        message: error.message
+      }
+
+      dispatch('notifications/add', notification, { root: true })
     }
   },
 
