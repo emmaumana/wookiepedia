@@ -1,7 +1,11 @@
-# Vue 3 + Vite
+# Teamwork assigment
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### Technologies used
 
-## Recommended IDE Setup
+- Vue 3
+- Vuex 4
+- Vite
+- Axios
+- Bulma
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+### Cache method: **Local Storage**
