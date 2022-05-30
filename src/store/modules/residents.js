@@ -65,7 +65,7 @@ export const actions = {
       return request.data.results
     } catch (error) {
       let message
-      if (error?.response.status === 404) {
+      if (error?.response?.status === 404) {
         message = `The page "${page}" doesn't exists`
       } else {
         message = error.message
