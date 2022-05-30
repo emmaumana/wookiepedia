@@ -68,7 +68,7 @@ export const actions = {
       if (error?.response?.status === 404) {
         message = `The page "${page}" doesn't exists`
       } else {
-        message = error.message
+        message = 'Server could be overloaded. Try again later.'
       }
 
       const notification = {
@@ -76,6 +76,7 @@ export const actions = {
       }
 
       dispatch('notifications/add', notification, { root: true })
+      return error
     }
   },
 

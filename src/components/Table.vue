@@ -12,7 +12,9 @@ const searchQuery = ref('')
 const isLoaded = ref(false)
 
 const initTable = async () => {
-  await store.dispatch('residents/fetchResidents')
+  const request = await store.dispatch('residents/fetchResidents')
+  // we got an error?
+  if (request.message) return store.dispatch('loadStatus/addError')
   isLoaded.value = await store.dispatch('loadStatus/changeStatus')
 }
 

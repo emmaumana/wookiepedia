@@ -10,8 +10,13 @@ const store = useStore()
 <template>
   <div class="app-container pb-6">
     <h1 class="title">Wookipedia</h1>
-    <Table />
-    <LoadMore v-if="store.state.loadStatus.isLoaded" />
+    <template v-if="!store.state.loadStatus.error">
+      <Table />
+      <LoadMore />
+    </template>
+    <p v-else>
+      Sorry there was a problem trying to load the table. Please try again later.
+    </p>
     <Notification />
   </div>
 </template>

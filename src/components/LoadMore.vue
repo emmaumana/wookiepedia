@@ -5,12 +5,7 @@ import { getNumberFromString } from '../utils/index'
 
 const store = useStore()
 
-const nextPage = ref(getNumberFromString(store.state.residents.residents.next))
 const isLoading = ref(false)
-
-const updateNextPage = () => {
-  nextPage.value = getNumberFromString(store.state.residents.residents.next)
-}
 
 const changeLoadingStatus = () => {
   isLoading.value = !isLoading.value
@@ -19,13 +14,20 @@ const changeLoadingStatus = () => {
 const loadMore = async () => {
   changeLoadingStatus()
   await store.dispatch('residents/fetchResidents', parseInt(nextPage.value))
-  updateNextPage()
   changeLoadingStatus()
 }
 
 const loadMoreTest = async () => {
   await store.dispatch('residents/fetchResidents', parseInt(0))
 }
+
+const isTableLoaded = computed(() => {
+  return store.state.loadStatus.isLoaded
+})
+
+const nextPage = computed(() => {
+  return getNumberFromString(store.state.residents.residents.next)
+})
 
 const buttonText = computed(() => {
   return nextPage.value ? 'Load more' : 'No more people'
@@ -37,7 +39,7 @@ const buttonLoadingClass = computed(() => {
 </script>
 
 <template>
-  <div class="load-more">
+  <div v-if="isTableLoaded" class="load-more">
     <div class="buttons is-centered">
       <button
         @click="loadMore"
