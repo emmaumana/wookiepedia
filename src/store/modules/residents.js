@@ -1,4 +1,3 @@
-import { useStore } from 'vuex'
 import Api from '../../services/api'
 import {
   sortArray,
@@ -50,23 +49,21 @@ export const actions = {
 
           Object.assign(resident, formatPlanetInfo(planetData.data))
         }
-        // format date
+        // format some data
         formatResidentsData(request.data.results)
+        // caching
+        cachedPages.push(page)
+        saveToLocalStorage('cached-pages', cachedPages)
       }
 
       // saving
       commit('SET_RESIDENTS', request.data)
-      // caching page if it doesn't exist
-      if (!cachedPages.includes(page)) {
-        cachedPages.push(page)
-        saveToLocalStorage('cached-pages', cachedPages)
-      }
 
       return request.data.results
     } catch (error) {
       let message
       if (error?.response?.status === 404) {
-        message = `The page "${page}" doesn't exists`
+        message = `The requested page doesn't exists`
       } else {
         message = 'Server could be overloaded. Try again later.'
       }
@@ -87,15 +84,15 @@ export const actions = {
 
 export const getters = {
   getLoadedResidents(state) {
-    return state.residents?.results
+    return state.residents.results
   },
 
   getLoadedResidentsCount(state) {
-    return state.residents?.results.length
+    return state.residents.results.length
   },
 
   getTotalResidentsCount(state) {
-    return state.residents?.count
+    return state.residents.count
   },
 
   getFilteredOrTotal(state, getters) {

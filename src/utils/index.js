@@ -1,5 +1,5 @@
 const getNumberFromString = string => {
-  return string?.match(/[0-9]/)[0]
+  return string.match(/[0-9]/)[0]
 }
 
 const formatDate = (date, arg) => {

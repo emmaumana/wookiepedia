@@ -18,7 +18,7 @@ const loadMore = async () => {
 }
 
 const loadMoreTest = async () => {
-  await store.dispatch('residents/fetchResidents', parseInt(0))
+  await store.dispatch('residents/fetchResidents', 0)
 }
 
 const isTableLoaded = computed(() => {
@@ -59,8 +59,9 @@ const buttonLoadingClass = computed(() => {
 
 <style lang="scss" scoped>
 .button {
-  &.is-danger:focus {
-    box-shadow: none;
+  &.is-danger:focus,
+  &.is-info:focus {
+    box-shadow: none !important;
   }
 }
 </style>
