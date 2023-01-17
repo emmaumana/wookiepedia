@@ -1,5 +1,3 @@
-# Teamwork assigment
-
 ### Technologies used
 
 - Vue 3
